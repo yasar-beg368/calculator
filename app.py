@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, jsonify
-
+import math
 app = Flask(__name__)
 
 def calculate_expression(expr):
     # Manual evaluation (simple support: +, -, *, /)
+    if expr.startswith("√"):
+        num = float(expr[1:])
+        return math.sqrt(num)
     numbers = []
     operators = []
     current = ""
@@ -41,10 +44,8 @@ def home():
     return render_template("index.html")
 
 @app.route("/calculate", methods=["POST"])
-def calculate(expr):
-    if expr.startswith("√"):
-        num = float(expr[1:])
-        return math.sqrt(num)
+def calculate():
+    
     data = request.json
     expression = data.get("expression", "")
     result = calculate_expression(expression)
