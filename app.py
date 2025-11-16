@@ -32,7 +32,8 @@ def calculate_expression(expr):
             if numbers[i+1] == 0:
                 return "Error: Division by zero"
             result /= numbers[i+1]
-
+        elif op == "^":
+            result = result ** numbers[i+1]
     return result
 
 @app.route("/")
