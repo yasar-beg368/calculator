@@ -41,7 +41,10 @@ def home():
     return render_template("index.html")
 
 @app.route("/calculate", methods=["POST"])
-def calculate():
+def calculate(expr):
+    if expr.startswith("√"):
+        num = float(expr[1:])
+        return math.sqrt(num)
     data = request.json
     expression = data.get("expression", "")
     result = calculate_expression(expression)
